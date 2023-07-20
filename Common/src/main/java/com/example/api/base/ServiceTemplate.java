@@ -2,6 +2,7 @@ package com.example.api.base;
 
 import com.example.bean.ErrorResponse;
 import com.example.bean.MambuError;
+import com.example.bean.model.UserInfo;
 import com.example.ulti.JsonUtil;
 import cores.model.ApiException;
 import cores.model.RestError;
@@ -30,7 +31,17 @@ public abstract class ServiceTemplate<I, O> implements ServiceInterface<I, O> {
 	}
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public ResponseEntity<O> execute(I requestBody) {
+	public ResponseEntity<O> executeString(String messageSn, UserInfo userInfo, String requestBody,
+										   List<MultipartFile> listFileRef) {
+		I requestTemp = convertParameter(requestBody);
+		if (requestTemp == null) {
+			return createResponseMessage(MambuError.MISSING_ENTITY_JSON, HttpStatus.BAD_REQUEST);
+		}
+		return execute(messageSn, userInfo, requestTemp, listFileRef);
+	}
+
+	public ResponseEntity<O> execute(String messageSn, UserInfo userInfo, I requestBody,
+									 List<MultipartFile> listFileRef) {
 		startTime = System.currentTimeMillis();
 		this.request = requestBody;
 

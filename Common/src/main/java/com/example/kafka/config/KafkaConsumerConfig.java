@@ -39,7 +39,7 @@ public class KafkaConsumerConfig {
 	@Value("${kafka.timeout.request-ms}")
 	private Long replyTimeout;
 	
-	@Value("${kafka.concurrent:2}")
+	@Value("${kafka.concurrent}")
 	private Integer concurrent;
 	
 	

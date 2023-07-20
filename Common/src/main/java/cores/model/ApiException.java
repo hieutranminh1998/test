@@ -16,9 +16,11 @@ package cores.model;
 import java.util.List;
 import java.util.Map;
 
+import com.example.bean.ErrorMapping;
 import com.example.bean.ErrorResponse;
 import com.example.bean.MambuError;
-import money.cltn.db.util.StringUtil;
+import com.example.ulti.StringUtil;
+
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-03T15:20:57.194+07:00")
 public class ApiException extends Exception {
