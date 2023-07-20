@@ -1,7 +1,11 @@
 package com.example.bean;
 
+import com.example.api.controller.ApiController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public enum MambuError {
-    INVALID_FIELD_LENGTH(-56, "INVALID_FIELD_LENGTH"), TIMEOUT_CONNECT_CORE_SVL(-54, "TIMEOUT_CONNECT_CORE_SVL")
+    INTERNAL_ERROR_CONSUMER(-2, "INTERNAL_ERROR_CONSUMER")
     ;
 
 

@@ -148,7 +148,6 @@ public class StringUtil {
     }
 
     public static StringBuilder replaceMobile(String mobile) {
-        System.out.print(mobile + "\n");
         StringBuilder stringResult = new StringBuilder(mobile);
 
         for (int i = 0; i < stringResult.length(); i++) {
@@ -162,7 +161,6 @@ public class StringUtil {
 
     public static StringBuilder replaceFullName(String fullName) {
         fullName = fullName.trim().toUpperCase();
-        System.out.print(fullName + "\n");
         StringBuilder stringResult = new StringBuilder(fullName);
         for (int i = 1; i < stringResult.length(); i++) {
             if (((stringResult.charAt(i)) != ' ' && stringResult.charAt(i - 1) != ' ')

@@ -1,10 +1,13 @@
 package com.example.ulti;
 
+import com.example.api.controller.ApiController;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import java.util.Map;
  */
 public class JsonUtil {
 	private static final ObjectMapper mapper = new ObjectMapper();
+	private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 	static {
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
@@ -35,7 +39,7 @@ public class JsonUtil {
 		try {
 			return mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.error("", e);
 			return "";
 		}
 	}
@@ -48,7 +52,7 @@ public class JsonUtil {
 			return mapper.readValue(stringObject, clazz);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("", e);
 			return defaultValue(clazz);
 		}
 	}
@@ -76,7 +80,7 @@ public class JsonUtil {
 		try {
 			return mapper.readValue(stringObject, type);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("", e);
 		}
 		;
 		return null;
@@ -90,7 +94,7 @@ public class JsonUtil {
 			JavaType type = mapper.getTypeFactory().constructParametricType(clazz, subClazz);
 			return mapper.readValue(stringObject, type);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("", e);
 		}
 		;
 		return null;
@@ -102,7 +106,7 @@ public class JsonUtil {
 		try {
 			actualObj = mapper.readTree(input);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("", e);
 		}
 		return actualObj;
 	}
@@ -113,7 +117,7 @@ public class JsonUtil {
 		try {
 			return mapper.readValue(stringObject, Map.class);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("", e);
 		}
 		;
 		return null;
