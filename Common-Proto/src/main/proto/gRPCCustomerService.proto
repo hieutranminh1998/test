@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package customerService;
+
+option java_package = "vn.com.msb.db.proto.customer";
+
+message RequestMessage {
+	string content = 1;
+}
+message ResponseMessage {
+    string result = 1;
+}
+
+
+service CustomerService {
+  rpc getCustomer(RequestMessage) returns (ResponseMessage) {};
+}
