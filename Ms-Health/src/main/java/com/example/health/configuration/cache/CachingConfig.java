@@ -1,5 +1,6 @@
 package com.example.health.configuration.cache;
 
+import com.example.health.ulti.CacheUtil;
 import com.google.common.cache.CacheBuilder;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -21,14 +22,18 @@ public class CachingConfig extends CachingConfigurerSupport {
     @Override
     public CacheManager cacheManager() {
         ConcurrentMapCacheManager cacheManager = new ConcurrentMapCacheManager() {
-
-            @Override
-            protected Cache createConcurrentMapCache(final String name) {
-                return new ConcurrentMapCache(name, CacheBuilder.newBuilder().expireAfterWrite(60 * 60, TimeUnit.SECONDS)
-                        .build().asMap(), true);
-            }
+//            @Override
+//            protected Cache createConcurrentMapCache(final String name) {
+//                return new ConcurrentMapCache(name, CacheBuilder.newBuilder().expireAfterWrite(60*60, TimeUnit.SECONDS)
+//                        .build().asMap(), true);
+//            }
         };
-        cacheManager.setCacheNames(Arrays.asList("customer", "totalStepInWeek"));
+        cacheManager.setCacheNames(
+                Arrays.asList(
+                        CacheUtil.CACHE_NAME.STEP,
+                        CacheUtil.CACHE_NAME.CUSTOMER,
+                        CacheUtil.CACHE_NAME.TOTAL_STEP_IN_WEEK,
+                        CacheUtil.CACHE_NAME.TOTAL_STEP_IN_MONTH));
         return cacheManager;
     }
 }

@@ -14,12 +14,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-//    @Override
-//    @KafkaListener(topics = "kafka-user-topic", groupId = "group-id")
-//    public void getCustomer(String customerId) {
-//
-//    }
-
     @Override
     public Customer getCustomer(String customerId) {
         Optional<Customer> optional = customerRepository.findById(customerId);

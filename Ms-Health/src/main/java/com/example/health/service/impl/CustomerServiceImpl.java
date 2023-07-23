@@ -3,6 +3,7 @@ package com.example.health.service.impl;
 import com.example.health.dto.CustomerDto;
 import com.example.health.gRPC.CustomerServiceProxy;
 import com.example.health.service.CustomerService;
+import com.example.health.ulti.CacheUtil;
 import com.example.health.ulti.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerServiceProxy customerServiceProxy;
 
     @Override
-    @Cacheable(value = "customer", key = "#customerId")
+    @Cacheable(value = CacheUtil.CACHE_NAME.CUSTOMER, key = "#customerId")
     public CustomerDto getCustomer(String customerId) {
         GRPCResponse grpcResponse = customerServiceProxy.getCustomer(new GRPCRequest(null, customerId));
         if(grpcResponse == null){

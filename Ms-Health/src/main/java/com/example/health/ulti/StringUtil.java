@@ -52,45 +52,6 @@ public class StringUtil {
         return ret;
     }
 
-    public static boolean checkFullName(String inputString) {
-        String specialCharactersString = "~!@#$%^&*()_+{}[]-|\\;:”<,>.?/";
-        for (int i = 0; i < inputString.length(); i++) {
-            char ch = inputString.charAt(i);
-            if (specialCharactersString.contains(Character.toString(ch))) {
-                break;
-            } else if (i == inputString.length() - 1)
-                return false;
-
-        }
-        return true;
-    }
-
-    public static boolean checkFullNamePending(String inputString) {
-        // ten viet lien -> pending
-        if (!inputString.trim().contains(" ")) {
-            return true;
-        }
-
-        // cac chu nhieu hon 6 ki tu -> pending
-        inputString = inputString.replaceAll("\\s+", " ");
-        for (String string : inputString.split(" ")) {
-            if (string.length() > 7) {
-                return true;
-            }
-        }
-        // chua so -> pending
-        String specialCharactersString = "0123456789";
-        for (int i = 0; i < inputString.length(); i++) {
-            char ch = inputString.charAt(i);
-            if (specialCharactersString.contains(Character.toString(ch))) {
-                return true;
-            } else if (i == inputString.length() - 1)
-                return false;
-
-        }
-        return true;
-    }
-
     public static String decapitalize(String string) {
         if (string == null || string.length() == 0) {
             return string;

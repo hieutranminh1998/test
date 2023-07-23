@@ -1,15 +1,27 @@
 package com.example.health.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class StepRankDto {
 
-    List<Rank> listRankDay;
+    @Id
+    @Column(name = "customer_id")
+    String customerId;
 
-    List<Rank> listRank;
+    @Transient
+    String name;
+
+    String step;
+
+    Integer rank;
 }
