@@ -9,7 +9,7 @@ public class AppConstant {
         public static final String INPUT_INVALID = "Input invalid";
     }
 
-    public static final class HTTP_STATUS {
+    public static final class STATUS_CODE {
         public static final int SUCCESS = 200;
         public static final int BAD_REQUEST = 400;
     }

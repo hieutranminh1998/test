@@ -1,9 +1,8 @@
-package com.example.health.input;
+package com.example.health.form;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -12,7 +11,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class StepInput {
+public class StepForm {
     @NotNull(message = "Step is required")
     @Min(value = 1, message = "Invalid step")
     @Max(value = 90000, message = "Invalid step")

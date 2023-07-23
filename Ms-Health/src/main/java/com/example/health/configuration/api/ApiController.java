@@ -8,4 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
 
     protected Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public String getMethodName(){
+        return new Object(){}.getClass().getEnclosingMethod().getName();
+    }
 }

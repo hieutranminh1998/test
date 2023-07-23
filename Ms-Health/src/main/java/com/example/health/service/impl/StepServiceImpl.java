@@ -4,7 +4,7 @@ import com.example.health.dao.StepRepository;
 import com.example.health.dto.StepDto;
 import com.example.health.dto.CustomerDto;
 import com.example.health.entity.Step;
-import com.example.health.input.StepInput;
+import com.example.health.form.StepForm;
 import com.example.health.service.CustomerService;
 import com.example.health.service.StepService;
 import com.example.health.ulti.AppConstant;
@@ -27,13 +27,13 @@ public class StepServiceImpl implements StepService {
     StepRepository stepRepository;
 
     @Override
-    public StepDto addStep(StepInput stepInput) {
-        CustomerDto customerDto = customerService.getCustomer(stepInput.getCustomerId());
+    public StepDto addStep(StepForm stepForm) {
+        CustomerDto customerDto = customerService.getCustomer(stepForm.getCustomerId());
         if(customerDto == null){
             throw new ApiException(AppConstant.ERROR.CUSTOMER_NOT_FOUND);
         }
-        Step step = getStep(stepInput.getCustomerId(), stepInput.getDate());
-        step = setParam(step, stepInput);
+        Step step = getStep(stepForm.getCustomerId(), stepForm.getDate());
+        step = setParam(step, stepForm);
         stepRepository.save(step);
         StepDto output = new StepDto();
         BeanUtils.copyProperties(step, output);
@@ -48,8 +48,8 @@ public class StepServiceImpl implements StepService {
         return step;
     }
 
-    public Step setParam(Step step, StepInput stepInput){
-        BeanUtils.copyProperties(stepInput, step);
+    public Step setParam(Step step, StepForm stepForm){
+        BeanUtils.copyProperties(stepForm, step);
         step.setStatus(AppConstant.STEP_STATUS.ACTIVATE);
         step.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         return step;
