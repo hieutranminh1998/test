@@ -49,7 +49,7 @@ public class StepCacheServiceImpl implements StepCacheService {
 
     @Override
     @CacheEvict(value = CacheUtil.CACHE_NAME.STEP, allEntries = true)
-    @Scheduled(cron = "0 3 1 */1 * ? *")
+    @Scheduled(cron = "0 3 1 */1 * *")
     public void resetCacheStep() {
         logger.info("Empty step cache");
     }
@@ -83,7 +83,7 @@ public class StepCacheServiceImpl implements StepCacheService {
 
     @Override
     @CacheEvict(value = CacheUtil.CACHE_NAME.TOTAL_STEP_IN_WEEK, allEntries = true)
-    @Scheduled(cron = "0 33 23 */1 * ? *")
+    @Scheduled(cron = "0 33 23 */1 * *")
     public void resetCacheStepInThisWeek() {
     }
 
@@ -114,7 +114,7 @@ public class StepCacheServiceImpl implements StepCacheService {
 
     @Override
     @CacheEvict(value = CacheUtil.CACHE_NAME.TOTAL_STEP_IN_MONTH, allEntries = true)
-    @Scheduled(cron = "0 37 23 */1 * ? *")
+    @Scheduled(cron = "0 37 23 */1 * *")
     public void resetCacheStepInThisMonth() {
     }
 

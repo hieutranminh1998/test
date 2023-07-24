@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-customer
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/customer/**
+        - id: service-health
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/health/**
+  application:
+    name: Edge server
+
+eureka:
+  client:
+    fetchRegistry: true
+    service-url:
+      default-zone: http://localhost:8761
+
+server:
+  port: 8765
