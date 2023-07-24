@@ -125,11 +125,7 @@ public class StepServiceImpl implements StepService {
         stepMonthRepository.save(data);
     }
 
-    @Override
-    public List<StepRankDto> getListRank(Integer offset, Integer limit) {
-        String month = DateUtil.simpleDateFormatDDMM.format(new Date());
-        return stepMonthRepository.getListRank(month, offset, limit);
-    }
+
 
     private Step setParam(StepForm stepForm, Step oldStep) {
         Step step = new Step();

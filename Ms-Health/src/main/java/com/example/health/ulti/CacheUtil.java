@@ -7,6 +7,7 @@ public class CacheUtil {
         public static final String CUSTOMER = "customer";
         public static final String TOTAL_STEP_IN_WEEK = "totalStepInWeek";
         public static final String TOTAL_STEP_IN_MONTH = "totalStepInMonth";
+        public static final String RANK_MONTH = "rankStepMonth";
     }
 
 

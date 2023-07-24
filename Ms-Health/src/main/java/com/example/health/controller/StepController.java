@@ -6,6 +6,7 @@ import com.example.health.dto.StepRankDto;
 import com.example.health.dto.TotalStepMonthDto;
 import com.example.health.dto.TotalStepWeekDto;
 import com.example.health.form.StepForm;
+import com.example.health.service.StepCacheService;
 import com.example.health.service.StepService;
 import com.example.health.ulti.AppConstant;
 import com.example.health.ulti.JsonUtil;
@@ -26,6 +27,9 @@ public class StepController extends ApiController {
 
     @Autowired
     StepService stepService;
+
+    @Autowired
+    StepCacheService stepCacheService;
 
     @ApiOperation(value = "Add step")
     @PostMapping("/step")
@@ -67,7 +71,7 @@ public class StepController extends ApiController {
         log.info(methodName);
         ResponseData responseData;
         try {
-            List<StepRankDto> data = stepService.getListRank(offset, limit);
+            List<StepRankDto> data = stepCacheService.getListRank(offset, limit);
             responseData = new ResponseData(AppConstant.STATUS_CODE.SUCCESS, data, AppConstant.SUCCESS);
             log.info(methodName + JsonUtil.toString(responseData));
             return new ResponseEntity<>(responseData, HttpStatus.OK);

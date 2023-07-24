@@ -1,6 +1,8 @@
 package com.example.health.service.impl;
 
+import com.example.health.dao.StepMonthRepository;
 import com.example.health.dao.StepRepository;
+import com.example.health.dto.StepRankDto;
 import com.example.health.entity.Step;
 import com.example.health.entity.StepMonth;
 import com.example.health.entity.StepWeek;
@@ -19,6 +21,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class StepCacheServiceImpl implements StepCacheService {
@@ -27,6 +30,9 @@ public class StepCacheServiceImpl implements StepCacheService {
 
     @Autowired
     StepRepository stepRepository;
+
+    @Autowired
+    StepMonthRepository stepMonthRepository;
 
     @Autowired
     KafkaSendService kafkaSendService;
@@ -116,6 +122,18 @@ public class StepCacheServiceImpl implements StepCacheService {
     @CacheEvict(value = CacheUtil.CACHE_NAME.TOTAL_STEP_IN_MONTH, allEntries = true)
     @Scheduled(cron = "0 37 23 */1 * *")
     public void resetCacheStepInThisMonth() {
+    }
+
+    @Override
+    @Cacheable(value = CacheUtil.CACHE_NAME.RANK_MONTH)
+    public List<StepRankDto> getListRank(Integer offset, Integer limit) {
+        String month = DateUtil.simpleDateFormatDDMM.format(new Date());
+        return stepMonthRepository.getListRank(month, offset, limit);
+    }
+
+    @CacheEvict(value = CacheUtil.CACHE_NAME.RANK_MONTH)
+    @Scheduled(cron = "*/20 * * * * *")
+    public void resetCacheRank() {
     }
 
 }

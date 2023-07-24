@@ -1,9 +1,11 @@
 package com.example.health.service;
 
+import com.example.health.dto.StepRankDto;
 import com.example.health.entity.Step;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public interface StepCacheService {
@@ -25,4 +27,6 @@ public interface StepCacheService {
     Integer updateStepInThisMonth(Step step, Step oldStep);
 
     void resetCacheStepInThisMonth();
+
+    List<StepRankDto> getListRank(Integer offset, Integer limit);
 }

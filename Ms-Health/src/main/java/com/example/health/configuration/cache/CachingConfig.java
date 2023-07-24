@@ -33,7 +33,9 @@ public class CachingConfig extends CachingConfigurerSupport {
                         CacheUtil.CACHE_NAME.STEP,
                         CacheUtil.CACHE_NAME.CUSTOMER,
                         CacheUtil.CACHE_NAME.TOTAL_STEP_IN_WEEK,
-                        CacheUtil.CACHE_NAME.TOTAL_STEP_IN_MONTH));
+                        CacheUtil.CACHE_NAME.TOTAL_STEP_IN_MONTH,
+                        CacheUtil.CACHE_NAME.RANK_MONTH
+                ));
         return cacheManager;
     }
 }
