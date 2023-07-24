@@ -28,8 +28,6 @@ public class StepController extends ApiController {
     @Autowired
     StepService stepService;
 
-    @Autowired
-    StepCacheService stepCacheService;
 
     @ApiOperation(value = "Add step")
     @PostMapping("/step")
@@ -71,7 +69,7 @@ public class StepController extends ApiController {
         log.info(methodName);
         ResponseData responseData;
         try {
-            List<StepRankDto> data = stepCacheService.getListRank(offset, limit);
+            List<StepRankDto> data = stepService.getListRank(offset, limit);
             responseData = new ResponseData(AppConstant.STATUS_CODE.SUCCESS, data, AppConstant.SUCCESS);
             log.info(methodName + JsonUtil.toString(responseData));
             return new ResponseEntity<>(responseData, HttpStatus.OK);

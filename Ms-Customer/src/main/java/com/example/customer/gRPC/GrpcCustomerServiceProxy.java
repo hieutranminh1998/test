@@ -16,6 +16,8 @@ import vn.com.msb.db.proto.customer.GRPCCustomerService.ResponseMessage;
 import vn.com.msb.db.proto.customer.GRPCCustomerService.RequestMessage;
 import vn.com.msb.db.proto.customer.CustomerServiceGrpc;
 
+import java.util.List;
+
 @GrpcService
 public class GrpcCustomerServiceProxy extends CustomerServiceGrpc.CustomerServiceImplBase {
 
@@ -32,13 +34,33 @@ public class GrpcCustomerServiceProxy extends CustomerServiceGrpc.CustomerServic
 
     @Override
     public void getCustomer(RequestMessage request, StreamObserver<ResponseMessage> responseObserver){
-        log.info("Receive message from grpc " +  request.getContent());
+        log.info("Receive getCustomer " +  request.getContent());
         GRPCRequest grpcRequest = JsonUtil.toObject(request.getContent(), GRPCRequest.class);
         if(grpcRequest == null || grpcRequest.getCustomerId() == null){
             onCompleted(responseObserver, HttpStatus.SC_BAD_REQUEST, null);
             return;
         }
         Customer customer = customerService.getCustomer(grpcRequest.getCustomerId());
+        onCompleted(responseObserver, HttpStatus.SC_OK, customer);
+    }
+
+    @Override
+    public void getListCustomer(RequestMessage request, StreamObserver<ResponseMessage> responseObserver){
+        log.info("Receive getListCustomer " +  request.getContent());
+        GRPCRequest grpcRequest = JsonUtil.toObject(request.getContent(), GRPCRequest.class);
+        if(grpcRequest == null || grpcRequest.getParam() == null){
+            onCompleted(responseObserver, HttpStatus.SC_BAD_REQUEST, null);
+            return;
+        }
+        List<String> list;
+        try {
+            list = (List<String>) grpcRequest.getParam();
+        }catch (Exception e){
+            onCompleted(responseObserver, HttpStatus.SC_BAD_REQUEST, null);
+            return;
+        }
+        String[] arr = list.toArray(new String[0]);
+        List<Customer> customer = customerService.getListCustomer(arr);
         onCompleted(responseObserver, HttpStatus.SC_OK, customer);
     }
 }

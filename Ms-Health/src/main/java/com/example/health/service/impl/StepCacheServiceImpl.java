@@ -125,13 +125,13 @@ public class StepCacheServiceImpl implements StepCacheService {
     }
 
     @Override
-    @Cacheable(value = CacheUtil.CACHE_NAME.RANK_MONTH)
+    @Cacheable(value = CacheUtil.CACHE_NAME.RANK_MONTH, key = "#offset", condition = "#offset!=0")
     public List<StepRankDto> getListRank(Integer offset, Integer limit) {
-        String month = DateUtil.simpleDateFormatDDMM.format(new Date());
+        String month = DateUtil.simpleDateFormatMMYY.format(new Date());
         return stepMonthRepository.getListRank(month, offset, limit);
     }
 
-    @CacheEvict(value = CacheUtil.CACHE_NAME.RANK_MONTH)
+    @CacheEvict(value = CacheUtil.CACHE_NAME.RANK_MONTH, allEntries = true)
     @Scheduled(cron = "*/20 * * * * *")
     public void resetCacheRank() {
     }

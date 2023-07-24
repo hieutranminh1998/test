@@ -23,7 +23,7 @@ public class StepWeek {
 
     private Integer step;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_date")
     private Timestamp updatedAt;
 
     private String date;

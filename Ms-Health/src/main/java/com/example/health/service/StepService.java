@@ -24,5 +24,5 @@ public interface StepService {
 
     void saveStepMonth(StepMonth stepMonth);
 
-
+    List<StepRankDto> getListRank(Integer offset, Integer limit);
 }

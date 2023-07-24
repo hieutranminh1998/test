@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import java.util.List;
 
 
@@ -14,8 +18,6 @@ public interface StepMonthRepository extends JpaRepository<StepMonth, String> {
 
     StepMonth findByCustomerIdAndMonth(String customerId, String month);
 
-    @Query(nativeQuery = true, value = " select customer_id, step, Rank() over " +
-            "( order by step desc, updated_date asc) as rank from health.step_month " +
-            " where month = :month limit :limit offset :offset")
+    @Query(nativeQuery = true, name="getRank")
     List<StepRankDto> getListRank(String month, Integer offset, Integer limit);
 }

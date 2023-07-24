@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class StepServiceImpl implements StepService {
@@ -125,6 +129,19 @@ public class StepServiceImpl implements StepService {
         stepMonthRepository.save(data);
     }
 
+    @Override
+    public List<StepRankDto> getListRank(Integer offset, Integer limit) {
+        List<StepRankDto> stepRankList = stepCacheService.getListRank(offset, limit);
+        List<String> listCustomerIds = new ArrayList<>();
+        stepRankList.forEach(s -> listCustomerIds.add(s.getCustomerId()));
+
+        List<CustomerDto> customerList = customerService.getListCustomer(listCustomerIds);
+        Map<String, CustomerDto> map = customerList.stream()
+                .collect(Collectors.toMap(CustomerDto::getCustomerId, Function.identity()));
+
+        stepRankList.forEach(s -> s.setName(map.get(s.getCustomerId()).getName()));
+        return stepRankList;
+    }
 
 
     private Step setParam(StepForm stepForm, Step oldStep) {

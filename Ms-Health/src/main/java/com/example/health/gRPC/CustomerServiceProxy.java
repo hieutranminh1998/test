@@ -21,4 +21,10 @@ public class CustomerServiceProxy {
         ResponseMessage responseMessage = this.customerServiceBlockingStub.getCustomer(requestMessage);
         return JsonUtil.toObject(responseMessage.getResult(), GRPCResponse.class);
     }
+
+    public GRPCResponse getListCustomer(GRPCRequest request){
+        RequestMessage requestMessage = RequestMessage.newBuilder().setContent(JsonUtil.toString(request)).build();
+        ResponseMessage responseMessage = this.customerServiceBlockingStub.getListCustomer(requestMessage);
+        return JsonUtil.toObject(responseMessage.getResult(), GRPCResponse.class);
+    }
 }
