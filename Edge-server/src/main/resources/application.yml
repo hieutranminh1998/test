@@ -3,11 +3,13 @@ spring:
     gateway:
       routes:
         - id: service-customer
-          uri: http://localhost:8081/
+          #uri: http://localhost:8081/
+          uri: lb://SERVICE-CUSTOMER
           predicates:
             - Path=/service-customer/**
         - id: service-health
-          uri: http://localhost:8080/
+#          uri: http://localhost:8080/
+          uri: lb://SERVICE-HEALTH
           predicates:
             - Path=/service-health/**
   application:
