@@ -14,19 +14,19 @@ public interface StepCacheService {
 
     Step updateStep(Step step, String dateStr);
 
-    void resetCacheStep();
+    boolean resetCacheStep();
 
     Integer getStepInThisWeek(String customerId, Date startDate, Date endDate);
 
     Integer updateStepInThisWeek(Step step, Step oldStep, String dateStr);
 
-    void resetCacheStepInThisWeek();
+    boolean resetCacheStepInThisWeek();
 
     Integer getStepInThisMonth(String customerId);
 
     Integer updateStepInThisMonth(Step step, Step oldStep);
 
-    void resetCacheStepInThisMonth();
+    boolean resetCacheStepInThisMonth();
 
     List<StepRankDto> getListRank(Integer offset, Integer limit);
 }

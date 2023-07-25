@@ -43,6 +43,7 @@ public class StepCacheServiceImpl implements StepCacheService {
         Step step = stepRepository.getByCustomerIdAndDate(customerId, date);
         if (step == null) {
             step = new Step();
+            step.setStep(0);
         }
         return step;
     }
@@ -56,8 +57,9 @@ public class StepCacheServiceImpl implements StepCacheService {
     @Override
     @CacheEvict(value = CacheUtil.CACHE_NAME.STEP, allEntries = true)
     @Scheduled(cron = "0 3 1 */1 * *")
-    public void resetCacheStep() {
+    public boolean resetCacheStep() {
         logger.info("Empty step cache");
+        return true;
     }
 
     @Override
@@ -69,15 +71,9 @@ public class StepCacheServiceImpl implements StepCacheService {
     @Override
     @CachePut(value = CacheUtil.CACHE_NAME.TOTAL_STEP_IN_WEEK, key = "#step.customerId")
     public Integer updateStepInThisWeek(Step step, Step oldStep, String dateStr) {
-        if (oldStep.getStep() == null) {
-            oldStep.setStep(0);
-        }
         Date startDate = DateUtil.getMondayThisWeek();
         Date endDate = DateUtil.getSundayThisWeek();
         int total = getStepInThisWeek(step.getCustomerId(), startDate, endDate) - oldStep.getStep() + step.getStep();
-        if (total < 0) {
-            total = 0;
-        }
         StepWeek stepWeek = new StepWeek();
         stepWeek.setCustomerId(step.getCustomerId());
         stepWeek.setStep(total);
@@ -90,7 +86,8 @@ public class StepCacheServiceImpl implements StepCacheService {
     @Override
     @CacheEvict(value = CacheUtil.CACHE_NAME.TOTAL_STEP_IN_WEEK, allEntries = true)
     @Scheduled(cron = "0 33 23 */1 * *")
-    public void resetCacheStepInThisWeek() {
+    public boolean resetCacheStepInThisWeek() {
+        return true;
     }
 
     @Override
@@ -102,14 +99,8 @@ public class StepCacheServiceImpl implements StepCacheService {
 
     @Override
     public Integer updateStepInThisMonth(Step step, Step oldStep) {
-        if (oldStep.getStep() == null) {
-            oldStep.setStep(0);
-        }
         String month = DateUtil.simpleDateFormatMMYY.format(new Date());
         int total = getStepInThisMonth(step.getCustomerId()) - oldStep.getStep() + step.getStep();
-        if (total < 0) {
-            total = 0;
-        }
         StepMonth stepMonth = new StepMonth();
         stepMonth.setCustomerId(step.getCustomerId());
         stepMonth.setStep(total);
@@ -121,7 +112,8 @@ public class StepCacheServiceImpl implements StepCacheService {
     @Override
     @CacheEvict(value = CacheUtil.CACHE_NAME.TOTAL_STEP_IN_MONTH, allEntries = true)
     @Scheduled(cron = "0 37 23 */1 * *")
-    public void resetCacheStepInThisMonth() {
+    public boolean resetCacheStepInThisMonth() {
+        return true;
     }
 
     @Override
@@ -133,7 +125,8 @@ public class StepCacheServiceImpl implements StepCacheService {
 
     @CacheEvict(value = CacheUtil.CACHE_NAME.RANK_MONTH, allEntries = true)
     @Scheduled(cron = "*/20 * * * * *")
-    public void resetCacheRank() {
+    public boolean resetCacheRank() {
+        return true;
     }
 
 }

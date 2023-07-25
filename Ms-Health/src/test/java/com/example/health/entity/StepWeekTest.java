@@ -15,5 +15,7 @@ class StepWeekTest {
                         BeanMatchers.hasValidBeanConstructor(),
                         BeanMatchers.hasValidGettersAndSetters()
                 ));
+        assertEquals(new StepWeek("abc", 100,
+                null, null, null).getCustomerId(), "abc");
     }
 }
