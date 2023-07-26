@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDto {
 
     String customerId;

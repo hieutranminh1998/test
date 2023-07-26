@@ -150,7 +150,6 @@ public class StepServiceImpl implements StepService {
         step.setId(oldStep.getId());
         step.setStatus(AppConstant.STEP_STATUS.ACTIVATE);
         step.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-        step.setCreatedAt(oldStep.getCreatedAt());
         return step;
     }
 
